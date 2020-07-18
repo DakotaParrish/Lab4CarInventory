@@ -112,28 +112,45 @@ Public Class frmCarInventory
             lblOutput.Text = errorMessages
         End If
     End Sub
-
+    ''' <summary>
+    ''' ListSelectedIndexChanged Sub Procedure - Used to load and edit the listview's content.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub ListSelectedIndexChanged(sender As Object, e As EventArgs) Handles lvCarInventory.SelectedIndexChanged
+        'Declares a car variable as part of the 'Car' class.
         Dim car As Car
-
+        'If there is a focused item in the listview
         If (Not lvCarInventory.FocusedItem Is Nothing) Then
+            'The currently selected index is the listview's focused item.
             currentlySelectedIndex = lvCarInventory.FocusedItem.Index
+            '
             car = cars(currentlySelectedIndex)
-
+            'Enables edit mode.
             editMode = True
-
+            'Sets the combo box control to the 'Car' classes Make() property method.
             cbMake.Text = car.Make
+            'Sets the textbox control to the 'Car' classes Model() property method.
             txtModel.Text = car.Model
+            'Sets the combo box control to the 'Car' classes Year() property method.
             cbYear.Text = car.Year
+            'Sets the textbox control to the 'Car' classes Price() property method.
             txtPrice.Text = car.Price
+            'Sets the checkbox control to the 'Car' classes NewOrUsed() property method.
             ckState.Checked = car.NewOrUsed
-
+            'Sets the output label's text property to the 'Car' classes PrintCarData() method.
             lblOutput.Text = car.PrintCarData()
         End If
     End Sub
-
+    ''' <summary>
+    ''' NewOrUsedCheck - Used to check the current checkbox's status. 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub NewOrUsedCheck(sender As Object, e As ItemCheckEventArgs) Handles lvCarInventory.ItemCheck
+        'If you are not updating data.
         If (Not updatingData) Then
+            'Sets the new value to the current value.
             e.NewValue = e.CurrentValue
 
         End If
